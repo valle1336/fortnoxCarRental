@@ -1,7 +1,7 @@
 # Car Rental bootstrap project
 
 This minimal bootstrap project contains a React UI and a backend powered by Spring, connected to a PostgreSQL database.
-Before you start the project make sure you have Maven, Java 17, Docker ( for easy setup of database ), Node and NPM installed. 
+Before you start the project make sure you have Maven, Java 17, Docker ( for easy setup of database ), Node 16 LTS and NPM installed. 
 
 You will be able to see the text "Hello world!" in the UI if you successfully manage to start the backend, frontend and the database. You are not supposed to use the "hello world" code, its only purpose is to verify that you have everything up and running correctly. 
 
