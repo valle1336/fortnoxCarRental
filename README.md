@@ -1,28 +1,25 @@
-# Car Rental
+# Car Rental bootstrap project
 
 This minimal bootstrap project contains a React UI and a backend powered by Spring, connected to a PostgreSQL database.
-Before you start the project make sure you have Maven, Java 17, Docker ( for database ), Node and NPM installed. 
+Before you start the project make sure you have Maven, Java 17, Docker ( for easy setup of database ), Node and NPM installed. 
 
-The backend serves a "Hello word" API that the frontend communicates with. 
+You will be able to see the text "Hello Word" in the UI if you successfully manage to start the backend, frontend and the database. You are not supposed to use the HelloWord code, its only purpose is to verify that you have everything up and running correctly. 
 
-You will be able to see the text "Hello Word" in the UI if you successfully manage to start the backend, frontend and the database.
+## How to start the project
 
-## How to start the bootstrap project
-
-### Database
-You may start a database with the following docker command:
+#### 1. Set up the database
+You may start a database with the following docker command based on the [Bitnami PostgreSQL Image](https://hub.docker.com/r/bitnami/postgresql/):
 
 `docker run --name postgresql -p 5432:5432 -e POSTGRESQL_USERNAME=my_user -e POSTGRESQL_PASSWORD=password123 -e POSTGRESQL_DATABASE=rental bitnami/postgresql:latest`
 
 
-### Backend 
-The backend was bootstrapped with [Spring initializr](https://start.spring.io/) and is configured to run against a postgres database.
+#### 2. Start the backend 
+The backend was bootstrapped with [Spring initializr](https://start.spring.io/) and is configured to run against a PostgreSQL database.
 
-Start the backend by running  `com.example.rental.RentalApplication#main` or with Maven.
+Start the backend by running  `com.example.rental.RentalApplication#main`.
 
 
-### Frontend
-
+#### 3. Start the frontend
 The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 See `package.json` for npm commands. The `package.json` has a proxy for the backend hosted at `http://localhost:8080`.
