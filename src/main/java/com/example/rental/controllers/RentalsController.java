@@ -1,9 +1,12 @@
 package com.example.rental.controllers;
 
 import com.example.rental.entities.RentalsEntity;
+import com.example.rental.exceptions.RentalValidationException;
 import com.example.rental.repositories.RentalsRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,8 +24,22 @@ public class RentalsController {
     }
 
     @PostMapping("/create")
-    public void addRental(@RequestBody RentalsEntity rental) {
+    public ResponseEntity<?> addRental(@RequestBody RentalsEntity rental) {
+        if (rental.getStartDate().isBefore(LocalDate.now())) {
+            throw new RentalValidationException("Start date can't be in the past.");
+        }
+        if (!rental.getEndDate().isAfter(rental.getStartDate())) {
+            throw new RentalValidationException("End date must be after start date.");
+        }
+        if (rental.getDriverName() == null || rental.getDriverName().isBlank() || rental.getDriverName().matches(".*\\d.*")) {
+            throw new RentalValidationException("Driver name can't be empty or contain numbers.");
+        }
+        if (rental.getDriverAge() < 18) {
+            throw new RentalValidationException("Driver must be 18 years or older.");
+        }
+
         rentalsRepository.addRental(rental);
+        return ResponseEntity.ok("Rental added!");
     }
 
 }
