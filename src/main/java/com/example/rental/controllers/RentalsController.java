@@ -41,6 +41,17 @@ public class RentalsController {
             throw new RentalValidationException("Driver must be 18 years or older.");
         }
 
+        if (!rentalsRepository.isCarAvailable(rental.getCarId(), rental.getStartDate(), rental.getEndDate())) {
+            LocalDate availableFrom = rentalsRepository.nextAvailableDate(
+                    rental.getCarId(),
+                    rental.getStartDate(),
+                    rental.getEndDate()
+            );
+            throw new RentalValidationException(
+                    "Car is not available for the selected period. Next available from: " + availableFrom
+            );
+        }
+
         rentalsRepository.addRental(rental);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Rental added!");

@@ -5,6 +5,7 @@ import com.example.rental.rowMap.RentalsRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -31,6 +32,27 @@ public class RentalsRepository {
                 rental.getEndDate(),
                 rental.getRevenue()
         );
+    }
+    public boolean isCarAvailable(int carId, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT COUNT(*) FROM rentals " +
+                "WHERE car_id = ? AND NOT (end_date < ? OR start_date > ?)";
+        Integer count = jdbcTemplate.queryForObject(
+                sql,
+                Integer.class,
+                carId,
+                startDate,
+                endDate
+        );
+        return count == null || count == 0;
+    }
+
+    public LocalDate nextAvailableDate(int carId, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT MAX(end_date) FROM rentals WHERE car_id = ? AND NOT (end_date < ? OR start_date > ?)";
+        LocalDate latestEnd = jdbcTemplate.queryForObject(
+                sql, LocalDate.class, carId, startDate, endDate
+        );
+
+        return latestEnd != null ? latestEnd.plusDays(1) : startDate;
     }
 
 }
