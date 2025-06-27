@@ -1,28 +1,40 @@
-# Car Rental bootstrap project
+Fortnox Car Rental – Backend
 
-This minimal bootstrap project contains a React UI and a backend powered by Spring, connected to a PostgreSQL database.
-Before you start the project make sure you have Maven, Java 17, Docker ( for easy setup of database ), Node 16 LTS and NPM installed. 
+Requirements
+Java 17+
 
-You will be able to see the text "Hello world!" in the UI if you successfully manage to start the backend, frontend and the database. You are not supposed to use the "hello world" code, its only purpose is to verify that you have everything up and running correctly. 
+Maven
 
-## How to start the project
+MySQL (or compatible) database
 
-#### 1. Set up the database
-You may start a database with the following docker command based on the [Bitnami PostgreSQL Image](https://hub.docker.com/r/bitnami/postgresql/):
+Setup
+1. Clone the repo
+2. Configure Database (In application.properties)
+3. Run DB Schema -
+  CREATE TABLE rentals (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  car_id INT NOT NULL,
+  driver_name VARCHAR(255) NOT NULL,
+  driver_age INT NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  revenue INT NOT NULL
+);
+CREATE TABLE cars (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  price_per_day INT
+); 
+4. Start the application! 🥳✅🥳
 
-`docker run --name postgresql -p 5432:5432 -e POSTGRESQL_USERNAME=my_user -e POSTGRESQL_PASSWORD=password123 -e POSTGRESQL_DATABASE=rental bitnami/postgresql:latest`
+API Endpoints
+1. /cars/getAll (Get all cars)
+2. /rentals/getAll (Get all rentals)
+3. /rentals/create (Create a new rental with validation)
 
+Testing
+JUnit tests are included in the project!
 
-#### 2. Start the backend 
-The backend was bootstrapped with [Spring initializr](https://start.spring.io/) and is configured to run against a PostgreSQL database.
-
-Start the backend by running  `com.example.rental.RentalApplication#main`.
-
-
-#### 3. Start the frontend
-The frontend was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-See `package.json` for npm commands. The `package.json` has a proxy for the backend hosted at `http://localhost:8080`.
-
-Start the frontend by doing `npm install` followed by `npm start` in the `frontend` folder
-
+Other 
+No ORMs are used like Hibernate and JPA
+Valdition includes validation for age, dates and potential double bookings!
