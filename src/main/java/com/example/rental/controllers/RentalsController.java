@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/rentals")
 public class RentalsController {
     private final RentalsRepository rentalsRepository;
