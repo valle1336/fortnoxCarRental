@@ -1,4 +1,4 @@
-Fortnox Car Rental – Backend
+Car Rental – Backend
 
 Requirements
 Java 17+
